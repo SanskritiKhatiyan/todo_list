@@ -1,62 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo</title>
-    <link rel="icon" type="image/png" href="./images/favicon-32x32.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./todo.css">
-    <!-- <script src="./todo.js"></script>  -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="todo.css">
+
+   <title>TODO</title>
 </head>
 
 <body>
-    <div class="up">
-    <div class="hii">
-        <h1 class="heading"> TODO</h1>
-        <img class="sun_img" src="./images/icon-sun.svg">
-        <div class="inputDiv">
-            <div class="inner">
-            <input type="text" class="input" placeholder="Enter here.....">
-            <button class="add"><i class="fas fa-plus"></i></button>
-        </div>
-        </div>
-    </div>
-        <div class="container">
-
-        </div>
-        
+  <div class="background"></div>
+  <div class="body">
+    <div class="app-name">
+      <h1>TODO</h1>
+      <img class="theme" src="images/icon-sun.svg" alt="">
     </div>
 
-
-    
-        <div class="box_footer">
-        <span id="item_count"> </span><span class="it_left">items left</span>
-        <div class="three_opt"> 
-            <button class="all_btn"><span> All</span></button>
-            <button class="active_btn"><span> Active</span></button>
-            <button class="completed_btn"><span> Completed</span></button>
-        </div>  
-        <button class="button_cont"><a class="remove_btn" onclick="removeAll()">Clear All</a></button>
-
-        
-        </div>
+    <div class="tasks">
+      <button></button>
+      <input name="tasks" id="tasks" type="text" placeholder="Create a new todo...">
     </div>
-
-<div class="lower_img">
-    <p class="footer"> Drag and drop to reorder list</p>
-</div>
-</div>
-
-    
-    <script src="todo.js">
-
-    </script>
-
+    <div class="todo-list">
+      <ul id="list"></ul>
+    </div>
+    <div class="initial-counter">
+      <div class="cnt">
+        <span></span> items left
+      </div>
+      <div class="clearr">Clear Completed</div>
+    </div>
+    <div class="counter">
+      <div class="count"><span></span> items left</div>
+      <div class="options">
+        <label>
+          <input type="radio" name="opt" id="all" checked><span>All</span>
+        </label>
+        <label>
+          <input type="radio" name="opt" id="active"><span>Active</span>
+        </label>
+        <label>
+          <input type="radio" name="opt" id="completed"><span>Completed</span>
+        </label>
+      </div>
+      <div class="clear">Clear Completed</div>
+    </div>
+  </div>
+  <script src="todo.js"></script>
 </body>
 
 </html>
-

@@ -1,100 +1,125 @@
-var container=document.querySelector('.container');
-var value1=document.querySelector('.input');
-var add1=document.querySelector('.add');
-var it_count=document.querySelector("#item_count");
+const itemCount = document.querySelector('.count span');
+const mt = document.querySelector('.cnt span');
 
-let count=0;
-class item{
-    constructor(name)
-    {
-        this.create(name);
-    }
-    
-    create(name)
-    {
-        var circle= document.createElement('button');
-        circle.classList.add('circle');
-        circle.innerHTML='<img id="crcle_btn" src="./images/icons8-circle-50.png" ></img>';
-        circle.addEventListener('click',()=>this.circle(l1));
-        var l1=document.createElement('div');
+itemCount.innerText = document.querySelectorAll('.list').length;
+mt.innerText = document.querySelectorAll('.list').length;
 
-        l1.classList.add('item');
-        // var _button = document.createElement("button");
-        // _button.innerHTML = '<img class="add_img" src="./images/icons8-circle-50.png"></img>';
-        // _button.onclick = function()
-        // {
-        //     alert("hello, world");
-        // }
+const themeIcon = document.querySelector('.theme');
+const bgImg= document.querySelector(".background");
+const bd=document.querySelector("body");
 
 
-        var input=document.createElement('input');
-       
-        input.type="text";
-        
-        input.disabled=true;
-        
-        input.value=name;
-        
-        input.classList.add('item_input');
-        count++;
-        it_count.innerHTML= count;
-        console.log(count);
-
-        var remove= document.createElement('button');
-        remove.classList.add('remove');
-        remove.innerHTML='<img class="remove_img" src="./images/icon-cross.svg" ></img>';
-        remove.addEventListener('click',()=>this.remove(l1));
-        
-
-        container.appendChild(l1);
-
-        l1.appendChild(input);
-        l1.appendChild(circle);
-        l1.appendChild(remove);
-    }
-
-    remove(l1)
-    {
-        container.removeChild(l1);
-        it_count.innerHTML=count-1;
-        count--;
-    }
-    circle(l1)
-    {
-        console.log("clicked");
-        // document.innerHTML='<img class="circle_img" src="./images/icon-check.svg" ></img>';
-        // this.circle.classList.add("checked");
-        // this.circle.innerHTML='<img id="crcle_btn" src="./images/icon-check.svg" ></img>';
-
-        document.getElementById("crcle_btn").src = "./images/icon-check.svg";
-        // container.appendChild(l1);
-
-    }
-    
-}
-
-
-add1.addEventListener('click',check);
-window.addEventListener('keydown',(e)=>{
-
-    if(e.which==13)
-    {
-        check();
+themeIcon.addEventListener('click',()=>{
+    document.body.classList.toggle('light')
+    if(document.body.classList.contains('light')){
+        themeIcon.src = 'images/icon-moon.svg';
+        bgImg.style.url("./images/bg-desktop-light.jpg");
+        bd.style.backgroundColor= "white";
+    }else{
+        themeIcon.src = 'images/icon-sun.svg'
+        // bd.style.backgroundColor= "grey";
     }
 })
 
-function check()
-{
-    if(value1.value!="")
-    {
-        new item(value1.value);
-        value1.value="";
+const addButton = document.querySelector('.tasks button');
+const itemInput = document.getElementById('tasks');
+const todo = document.querySelector('.todo-list ul');
+const itemID = document.querySelector('.options input[type="radio"]:checked');
+
+addButton.addEventListener('click',()=>{
+    if(itemInput.value.length > 0){
+        addItems(itemInput.value);
+        itemInput.value = '';
     }
+})
+
+itemInput.addEventListener('keypress',(event)=>{
+    if(event.charCode === 13 && itemInput.value.length > 0){
+        addItems(itemInput.value);
+        itemInput.value = '';
+    }
+})
+
+function addItems(text){
+    const item = document.createElement('li');
+    item.innerHTML = 
+    `
+    <label class="list">
+    <input class="checkbox" type="checkbox"> 
+    <span class="text">${text}</span>
+    </label>
+    <span class="remove"></span>
+    `;
+    if(itemID.id === 'completed'){
+        item.classList.add('hidden');
+    }
+    todo.append(item);
+    updateCount(1);
 }
 
-function removeAll()
-{
-    document.querySelector('.container').innerHTML="";
-    it_count.innerHTML=0;
-    count=0;
+function updateCount(num) {
+    itemCount.innerText = +itemCount.innerText + num;
 }
+
+function removeItems(item){
+    item.remove();
+    updateCount(-1);
+}
+
+todo.addEventListener('click',(event)=>{
+    if(event.target.classList.contains('remove')){
+        removeItems(event.target.parentElement);
+    }
+})
+
+document.querySelectorAll('.options input').forEach(radio =>{
+    radio.addEventListener('change',(event)=>{
+        optionsTodo(event.target.id);
+    })
+})
+
+function optionsTodo(id){
+    const allItems = document.querySelectorAll('li');
+
+
+    switch(id){
+        case 'all':
+            allItems.forEach(item =>{
+                item.classList.remove('hidden');
+        })    
+        break;
+        case 'active':
+            allItems.forEach(item =>{
+                if(item.querySelector('input').checked){
+                    item.classList.add('hidden')
+                }else{
+                    item.classList.remove('hidden')
+                }
+        })
+        break;
+        default:
+            allItems.forEach(item =>{
+                if(item.querySelector('input').checked){
+                    item.classList.remove('hidden')
+                }else{
+                    item.classList.add('hidden')
+                }
+            })
+            break;
+    }
+}
+const clear = document.querySelector('.clear');
+const mobClear = document.querySelector('.clearr');
+
+clear.addEventListener('click',()=>{
+    const itemChecked = document.querySelectorAll('.list input[type="checkbox"]:checked');
+    itemChecked.forEach(item=>{
+        removeItems(item.closest('li'));
+    })
+})
+mobClear.addEventListener('click',()=>{
+    const itemChecked = document.querySelectorAll('.list input[type="checkbox"]:checked');
+    itemChecked.forEach(item=>{
+        removeItems(item.closest('li'));
+    })
+})
