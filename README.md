@@ -1,4 +1,4 @@
-To manage you todo list of a day.
+To manage your todo list of a day.
 
 Most important it manages your 
 
